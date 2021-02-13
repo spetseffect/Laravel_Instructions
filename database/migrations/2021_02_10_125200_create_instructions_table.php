@@ -13,16 +13,18 @@ class CreateInstructionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('instructions', function (Blueprint $table) {
-            $table->id()->autoIncrement();
-            $table->string('name', 100);
-            $table->string('description', 255);
-            $table->string('filename', 255);
-            $table->integer('status')->default(1);
-            $table->bigInteger('authorId')->unsigned();
-            $table->foreign('authorId')->references('id')->on('users');
-            $table->timestamps();
-        });
+        if(!Schema::hasTable('instructions')) {
+            Schema::create('instructions', function (Blueprint $table) {
+                $table->id()->autoIncrement();
+                $table->string('name', 100);
+                $table->string('description', 255);
+                $table->string('filename', 255);
+                $table->integer('status')->default(1);
+                $table->bigInteger('authorId')->unsigned();
+                $table->foreign('authorId')->references('id')->on('users');
+                $table->timestamps();
+            });
+        }
     }
 
     /**

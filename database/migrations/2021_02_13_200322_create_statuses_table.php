@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
 
-class CreateRolesTable extends Migration
+class CreateStatusesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,19 +14,20 @@ class CreateRolesTable extends Migration
      */
     public function up()
     {
-        if(!Schema::hasTable('roles')) {
-            Schema::create('roles', function (Blueprint $table) {
+        if(!Schema::hasTable('statuses')) {
+            Schema::create('statuses', function (Blueprint $table) {
                 $table->id();
-                $table->string('name', 100);
+                $table->string('name');
                 //$table->timestamps();
             });
-
             //default data
             $arr=[
-                ['id'=>1,'name'=>'user'],
-                ['id'=>2,'name'=>'admin']
+                ['id'=>1,'name'=>'Новый'],
+                ['id'=>2,'name'=>'На рассмотрении'],
+                ['id'=>3,'name'=>'Утверждено'],
+                ['id'=>4,'name'=>'Отклонено'],
             ];
-            DB::table('roles')->insert($arr);
+            DB::table('statuses')->insert($arr);
         }
     }
 
@@ -37,6 +38,6 @@ class CreateRolesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('roles');
+        Schema::dropIfExists('statuses');
     }
 }
