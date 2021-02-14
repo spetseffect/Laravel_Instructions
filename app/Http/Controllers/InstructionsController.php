@@ -12,9 +12,15 @@ class InstructionsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(string $str=null)
     {
-        //
+        $inst = new Instructions();
+        if(empty($str)) {
+            $instr = $inst->index();
+        }else{
+            $instr = $inst->search($str);
+        }
+        return view('instructions.instructions', compact('instr'));
     }
 
     /**
@@ -44,9 +50,9 @@ class InstructionsController extends Controller
      * @param  \App\Models\Instructions  $instructions
      * @return \Illuminate\Http\Response
      */
-    public function show(Instructions $instructions)
+    public function show(string $instructions)
     {
-        //
+        return $instructions;
     }
 
     /**

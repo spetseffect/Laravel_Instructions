@@ -20,8 +20,8 @@ class CreateInstructionsTable extends Migration
                 $table->string('description', 255);
                 $table->string('filename', 255);
                 $table->integer('status')->default(1);
-                $table->bigInteger('authorId')->unsigned();
-                $table->foreign('authorId')->references('id')->on('users');
+                $table->bigInteger('author_id')->unsigned();
+                $table->foreign('author_id')->references('id')->on('users');
                 $table->timestamps();
             });
         }

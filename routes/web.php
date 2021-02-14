@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\InstructionsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('/', [InstructionsController::class, 'index']);//'InstructionsController@index'
+Route::get('/search/{text}', function(string $text){
+    $obj=new InstructionsController();
+    return $obj->index($text);
+})->name('search');
