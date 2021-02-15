@@ -1,5 +1,4 @@
 <form id="search-form" action="" method="get">
-{{--    {{route('search',['text'=>' '])}}--}}
     <div class="row">
         <div class="col-6">
             <h1>Инструкции</h1>

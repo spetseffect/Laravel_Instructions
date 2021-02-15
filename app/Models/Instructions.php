@@ -46,6 +46,11 @@ class Instructions extends Model
             ->get();
         return $result;
     }
+//    public function store(Instructions $instructions){
+//        DB::table('instructions')->insert([
+//
+//        ]);
+//    }
 
 //    protected $fillable = [
 //        'id',

@@ -14,8 +14,10 @@ use App\Http\Controllers\InstructionsController;
 |
 */
 
-Route::get('/', [InstructionsController::class, 'index']);//'InstructionsController@index'
+Route::get('/', [InstructionsController::class, 'index'])->name('home');
 Route::get('/search/{text}', function(string $text){
     $obj=new InstructionsController();
     return $obj->index($text);
 })->name('search');
+Route::get('/new', [InstructionsController::class, 'create'])->name('instruct.create');
+Route::post('/store', [InstructionsController::class, 'store'])->name('instruct.store');

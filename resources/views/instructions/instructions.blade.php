@@ -2,6 +2,7 @@
 
 @section('instructions')
     <div class="row">
+        <a class="btn btn-info" href="{{ route('instruct.create') }}">Загрузить новую инструкцию</a>
         <table class="table">
             <thead>
                 <tr>

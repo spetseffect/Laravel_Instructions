@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Instructions;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\File;
+
 
 class InstructionsController extends Controller
 {
@@ -30,7 +33,7 @@ class InstructionsController extends Controller
      */
     public function create()
     {
-        //
+        return view('instructions.create');
     }
 
     /**
@@ -41,7 +44,25 @@ class InstructionsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|min:4',
+            'description' => 'required',
+            'device' => 'required',
+            'file' => 'required|mimes:pdf,jpg,png,txt,doc,docx'
+        ]);
+        $file=$request->file('file');
+        $newfname=time().$file->getFilename();
+        Storage::move($file->getPathname(), '/publick/inst-files/'.$newfname);
+        $instruction = new Instructions([
+            'name' => $request->get('name'),
+            'description' => $request->get('description'),
+            'filename' => $newfname,
+            'status' => 1,
+            'authorId' => 1,
+        ]);
+        $instruction->save();
+        return redirect('/')->with('success', 'Instruction saved!');
+//        return $file->getFilename();
     }
 
     /**
@@ -50,10 +71,10 @@ class InstructionsController extends Controller
      * @param  \App\Models\Instructions  $instructions
      * @return \Illuminate\Http\Response
      */
-    public function show(string $instructions)
-    {
-        return $instructions;
-    }
+//    public function show(string $instructions)
+//    {
+//        return $instructions;
+//    }
 
     /**
      * Show the form for editing the specified resource.
@@ -61,10 +82,10 @@ class InstructionsController extends Controller
      * @param  \App\Models\Instructions  $instructions
      * @return \Illuminate\Http\Response
      */
-    public function edit(Instructions $instructions)
-    {
-        //
-    }
+//    public function edit(Instructions $instructions)
+//    {
+//        //
+//    }
 
     /**
      * Update the specified resource in storage.
@@ -73,10 +94,10 @@ class InstructionsController extends Controller
      * @param  \App\Models\Instructions  $instructions
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Instructions $instructions)
-    {
-        //
-    }
+//    public function update(Request $request, Instructions $instructions)
+//    {
+//        //
+//    }
 
     /**
      * Remove the specified resource from storage.
@@ -84,8 +105,8 @@ class InstructionsController extends Controller
      * @param  \App\Models\Instructions  $instructions
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Instructions $instructions)
-    {
-        //
-    }
+//    public function destroy(Instructions $instructions)
+//    {
+//        //
+//    }
 }
